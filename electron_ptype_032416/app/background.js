@@ -6,14 +6,12 @@
 import { app, BrowserWindow } from 'electron';
 import devHelper from './vendor/electron_boilerplate/dev_helper';
 import windowStateKeeper from './vendor/electron_boilerplate/window_state';
-import { ShipManager } from './lib/ship-manager';
 
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
 import env from './env';
 
 var mainWindow;
-let sm;
 
 // Preserver of the window size and position between app launches.
 var mainWindowState = windowStateKeeper('main', {
@@ -40,9 +38,6 @@ app.on('ready', function () {
         devHelper.setDevMenu();
         mainWindow.openDevTools();
     }
-
-    sm = new ShipManager();
-    let ship = sm.spawnShip({name: "prototypeShip"});
 
     mainWindow.on('close', function () {
         mainWindowState.saveState(mainWindow);

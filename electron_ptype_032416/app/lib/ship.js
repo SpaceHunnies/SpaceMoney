@@ -3,6 +3,7 @@
 export class Ship {
 	constructor(properties) {
 		this.properties = properties;
+		this.name = properties.name;
 		console.log("created a ship with name " + this.properties.name);
 	}
 

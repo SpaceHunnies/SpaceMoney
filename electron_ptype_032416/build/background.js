@@ -77,61 +77,6 @@ function windowStateKeeper (name, defaults) {
     };
 }
 
-// module.exports = (type) => {
-// 	return {
-// 		name: type,
-// 		speed: 5,
-// 		crewMax: 20,
-// 		food: 0,
-// 		foodMax: 100,
-// 		oxy: 0,
-// 		oxyMax: 100,
-// 		water: 0,
-// 		waterMax: 100,
-// 		captain: null,
-// 		comms: null,
-// 		nav: null,
-// 		quartermaster: null,
-// 	};
-// }
-
-class Ship {
-	constructor(properties) {
-		this.properties = properties;
-		console.log("created a ship with name " + this.properties.name);
-	}
-
-	addFood (amount) {
-		if (food + amount <= foodMax) {
-			food = food + amount;
-			return 0;
-		} else {
-			let overflow = foodMax - food;
-			food = foodMax;
-			return overflow;
-		}
-	}
-}
-
-class ShipManager {
-	constructor(properties) {
-		console.log("created a ship manager")
-		// this.properties = properties;
-	}
-
-	spawnShip(properties) {
-		console.log("spawning a ship");
-		return new Ship(properties);
-	}
-
-	print() {
-		console.log("ship manager printing");
-	}
-}
-
-// const shipManager = new ShipManager();
-// shipManager.spawnShip();
-
 var app$1;
 if (process.type === 'renderer') {
     app$1 = require('electron').remote.app;
@@ -145,7 +90,6 @@ var manifest = appDir.read('package.json', 'json');
 var env = manifest.env;
 
 var mainWindow;
-let sm;
 
 // Preserver of the window size and position between app launches.
 var mainWindowState = windowStateKeeper('main', {
@@ -172,9 +116,6 @@ electron.app.on('ready', function () {
         devHelper.setDevMenu();
         mainWindow.openDevTools();
     }
-
-    sm = new ShipManager();
-    let ship = sm.spawnShip({name: "prototypeShip"});
 
     mainWindow.on('close', function () {
         mainWindowState.saveState(mainWindow);

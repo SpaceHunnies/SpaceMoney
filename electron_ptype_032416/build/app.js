@@ -22,6 +22,49 @@ var manifest = appDir$1.read('package.json', 'json');
 
 var env = manifest.env;
 
+class Ship {
+	constructor(properties) {
+		this.properties = properties;
+		this.name = properties.name;
+		console.log("created a ship with name " + this.properties.name);
+	}
+
+	addFood (amount) {
+		if (food + amount <= foodMax) {
+			food = food + amount;
+			return 0;
+		} else {
+			let overflow = foodMax - food;
+			food = foodMax;
+			return overflow;
+		}
+	}
+}
+
+class ShipManager {
+	constructor(properties) {
+		console.log("created a ship manager")
+		this.properties = properties;
+		this.shipList = [];
+	}
+
+	spawnShip(properties) {
+		console.log("spawning a ship named " + properties.name);
+		let s = new Ship(properties);
+		this.shipList.push(s);
+		return s;
+	}
+
+	print() {
+		for (var i = this.shipList.length - 1; i >= 0; i--) {
+			console.log(this.shipList[i]);
+		}
+	}
+}
+
+let sm = new ShipManager();
+let ship = sm.spawnShip({name: "prototypeShip"});
+
 console.log('Loaded environment variables:', env);
 
 var app = electron.remote.app;
@@ -35,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('greet').innerHTML = greet();
     document.getElementById('platform-info').innerHTML = os.platform();
     document.getElementById('env-name').innerHTML = env.name;
+    document.getElementById('ship').innerHTML = ship.name;
 });
 }());
 //# sourceMappingURL=app.js.map
