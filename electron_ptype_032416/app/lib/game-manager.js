@@ -10,7 +10,6 @@ export class GameManager {
 		console.log(this.ship);
 
 		let newPos = this.ship.transform.translate(1, 1, 1);
-		console.log(newPos);
 	}
 
 	update (deltaTime) {

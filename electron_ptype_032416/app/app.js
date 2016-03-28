@@ -26,4 +26,5 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('platform-info').innerHTML = os.platform();
     document.getElementById('env-name').innerHTML = env.name;
     document.getElementById('ship').innerHTML = gm.ship.name;
+	document.getElementById("pos").innerHTML = gm.ship.transform.position.data;
 });
