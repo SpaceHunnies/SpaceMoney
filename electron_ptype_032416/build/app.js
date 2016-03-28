@@ -22,11 +22,47 @@ var manifest = appDir$1.read('package.json', 'json');
 
 var env = manifest.env;
 
-class Ship {
+let linearAlgebra = require('linear-algebra')();
+let Vector = linearAlgebra.Vector;
+let Matrix = linearAlgebra.Matrix;
+class Transform {
+	constructor(position) {
+		position ? this.position = position : this.position = new Matrix([0, 0, 0]);
+	}
+
+	translate(translation) {
+		this.position = this.position.plus(translation);
+	}
+
+	translate(x, y, z) {
+		this.position = this.position.plus(new Matrix([x, y, z]));
+		return this.position.toArray()
+	}
+}
+
+class GameObject {
 	constructor(properties) {
-		this.properties = properties;
 		this.name = properties.name;
-		console.log("created a ship with name " + this.properties.name);
+		this.transform = new Transform(properties.position);
+	}
+}
+
+class Ship extends GameObject {
+	constructor(properties) {
+		super(properties);
+		this.speed = properties.speed;
+		this.crewMax = properties.crewMax;
+		this.food = properties.food;
+		this.foodMax = properties.foodMax;
+		this.oxy = properties.oxy;
+		this.oxyMax = properties.oxyMax;
+		this.water = properties.water;
+		this.waterMax = properties.waterMax;
+		this.captain = null;
+		this.comms = null;
+		this.quartermaster = null;
+		this.nav = null;
+		console.log("created a ship with name " + properties.name);
 	}
 
 	addFood (amount) {
@@ -46,19 +82,24 @@ class Shipyard {
 		console.log("created a shipyard")
 		this.properties = properties;
 		this.shipList = [];
+		this.shipTemplate = {
+			name: 'prototypeShip',
+			speed: 5,
+			crewMax: 20,
+			food: 0,
+			foodMax: 100,
+			oxy: 0,
+			oxyMax: 100,
+			water: 0,
+			waterMax: 100
+		};
 	}
 
 	buildShip(properties) {
-		console.log("spawning a ship named " + properties.name);
+		console.log("spawning a ship with properties:\n " + properties.name);
 		let s = new Ship(properties);
 		this.shipList.push(s);
 		return s;
-	}
-
-	print() {
-		for (var i = this.shipList.length - 1; i >= 0; i--) {
-			console.log(this.shipList[i]);
-		}
 	}
 }
 
@@ -66,7 +107,12 @@ class GameManager {
 	constructor(args) {
 		console.log("constructing game manager")
 		this.shipyard = new Shipyard();
-		this.ship = this.shipyard.buildShip({name: "prototypeShip"});
+		this.ship = this.shipyard.buildShip(this.shipyard.shipTemplate);
+		console.log(this.ship);
+
+		let newPos = this.ship.transform.translate(1, 1, 1);
+		console.log(newPos);
+
 	}
 
 	update (deltaTime) {
@@ -78,27 +124,6 @@ class GameManager {
 		document.getElementById("demo").innerHTML = d.toLocaleTimeString();
 	}
 }
-
-
-
-
-// let mainLoop = setInterval(update, 1000 / 60);
-
-// let protoShip = shipManager.spawnShip({
-// 		name: 'prototypeShip',
-// 		speed: 5,
-// 		crewMax: 20,
-// 		food: 0,
-// 		foodMax: 100,
-// 		oxy: 0,
-// 		oxyMax: 100,
-// 		water: 0,
-// 		waterMax: 100,
-// 		captain: null,
-// 		comms: null,
-// 		nav: null,
-// 		quartermaster: null
-// });
 
 let gm = new GameManager();
 

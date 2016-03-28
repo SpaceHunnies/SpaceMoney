@@ -8,7 +8,11 @@
   "copyright": "© 2016, your company here",
   "main": "background.js",
   "dependencies": {
-    "fs-jetpack": "^0.7.0"
+    "fs-jetpack": "^0.7.0",
+    "linear-algebra": "^3.1.3"
+  },
+  "scripts": {
+    "postinstall": "node ../tasks/rebuild_native_modules"
   },
   "env": {
     "name": "development",
