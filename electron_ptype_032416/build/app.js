@@ -41,14 +41,14 @@ class Ship {
 	}
 }
 
-class ShipManager {
+class Shipyard {
 	constructor(properties) {
-		console.log("created a ship manager")
+		console.log("created a shipyard")
 		this.properties = properties;
 		this.shipList = [];
 	}
 
-	spawnShip(properties) {
+	buildShip(properties) {
 		console.log("spawning a ship named " + properties.name);
 		let s = new Ship(properties);
 		this.shipList.push(s);
@@ -62,8 +62,45 @@ class ShipManager {
 	}
 }
 
-let sm = new ShipManager();
-let ship = sm.spawnShip({name: "prototypeShip"});
+class GameManager {
+	constructor(args) {
+		console.log("constructing game manager")
+		this.shipyard = new Shipyard();
+		this.ship = this.shipyard.buildShip({name: "prototypeShip"});
+	}
+
+	update (deltaTime) {
+		timer();
+	}
+
+	timer () {
+		var d = new Date();
+		document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+	}
+}
+
+
+
+
+// let mainLoop = setInterval(update, 1000 / 60);
+
+// let protoShip = shipManager.spawnShip({
+// 		name: 'prototypeShip',
+// 		speed: 5,
+// 		crewMax: 20,
+// 		food: 0,
+// 		foodMax: 100,
+// 		oxy: 0,
+// 		oxyMax: 100,
+// 		water: 0,
+// 		waterMax: 100,
+// 		captain: null,
+// 		comms: null,
+// 		nav: null,
+// 		quartermaster: null
+// });
+
+let gm = new GameManager();
 
 console.log('Loaded environment variables:', env);
 
@@ -78,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('greet').innerHTML = greet();
     document.getElementById('platform-info').innerHTML = os.platform();
     document.getElementById('env-name').innerHTML = env.name;
-    document.getElementById('ship').innerHTML = ship.name;
+    document.getElementById('ship').innerHTML = gm.ship.name;
 });
 }());
 //# sourceMappingURL=app.js.map

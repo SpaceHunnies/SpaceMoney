@@ -2,14 +2,14 @@
 
 import { Ship } from './ship';
 
-export class ShipManager {
+export class Shipyard {
 	constructor(properties) {
-		console.log("created a ship manager")
+		console.log("created a shipyard")
 		this.properties = properties;
 		this.shipList = [];
 	}
 
-	spawnShip(properties) {
+	buildShip(properties) {
 		console.log("spawning a ship named " + properties.name);
 		let s = new Ship(properties);
 		this.shipList.push(s);
