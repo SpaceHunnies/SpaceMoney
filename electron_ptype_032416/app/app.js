@@ -10,6 +10,8 @@ import env from './env';
 
 import { GameManager } from './lib/game-manager'
 
+let framerate = 1000 / 60
+
 let gm = new GameManager();
 
 console.log('Loaded environment variables:', env);
@@ -25,6 +27,22 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('greet').innerHTML = greet();
     document.getElementById('platform-info').innerHTML = os.platform();
     document.getElementById('env-name').innerHTML = env.name;
-    document.getElementById('ship').innerHTML = gm.ship.name;
-	document.getElementById("pos").innerHTML = gm.ship.transform.position.data;
+    document.getElementById('ship-name').innerHTML = gm.ship.name;
+	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
 });
+
+document.addEventListener("keypress", function () {
+	console.log("keypress!");
+	gm.update();
+});
+
+function update () {
+	gm.update(framerate);
+};
+
+function draw () {
+	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
+};
+
+setInterval(update, framerate);
+setInterval(draw, framerate * 60);

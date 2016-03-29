@@ -30,5 +30,14 @@ export class Ship extends GameObject {
 			return overflow;
 		}
 	}
+
+	translate (x, y, z) {
+		this.transform.translate(x, y, z);
+	}
+
+	move (val) {
+		this.transform.translate(val.direction[0] * val.speed, val.direction[1] * val.speed, val.direction[2] * val.speed);
+	}
+
 }
 

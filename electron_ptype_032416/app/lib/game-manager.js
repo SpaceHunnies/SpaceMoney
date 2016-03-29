@@ -9,15 +9,15 @@ export class GameManager {
 		this.ship = this.shipyard.buildShip(this.shipyard.shipTemplate);
 		console.log(this.ship);
 
-		let newPos = this.ship.transform.translate(1, 1, 1);
+		let newPos = this.ship.translate(1, 1, 1);
 	}
 
 	update (deltaTime) {
-		timer();
+		this.ship.move({direction: [1, 0, 1], speed: 1 / deltaTime});
 	}
 
 	timer () {
 		var d = new Date();
 		document.getElementById("demo").innerHTML = d.toLocaleTimeString();
 	}
-}
+};

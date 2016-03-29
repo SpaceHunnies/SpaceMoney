@@ -22,9 +22,21 @@ var manifest = appDir$1.read('package.json', 'json');
 
 var env = manifest.env;
 
-let linearAlgebra = require('linear-algebra')();
-let Vector = linearAlgebra.Vector;
-let Matrix = linearAlgebra.Matrix;
+const linearAlgebra = require('linear-algebra')();
+const Vector = linearAlgebra.Vector;
+const Matrix = linearAlgebra.Matrix;
+Matrix.sqrDistance = function (fromVector, toVector) {
+	let displacement = fromVector.minus(toVector);
+	let sqrDist = displacement.map(function(v) {
+		return v * v;
+	});
+	return sqrDist.getSum();
+};
+
+Matrix.distance = function(fromVector, toVector) {
+	return Math.sqrt(Matrix.sqrDistance(fromVector, toVector));
+};
+
 class Transform {
 	constructor(position) {
 		position ? this.position = position : this.position = new Matrix([0, 0, 0]);
@@ -32,11 +44,16 @@ class Transform {
 
 	translate(translation) {
 		this.position = this.position.plus(translation);
+		return this.position.toArray();
 	}
 
 	translate(x, y, z) {
 		this.position = this.position.plus(new Matrix([x, y, z]));
-		return this.position.toArray()
+		return this.position.toArray();
+	}
+
+	moveTo(x, y, z) {
+		this.position = new Matrix([x, y, z]);
 	}
 }
 
@@ -75,6 +92,15 @@ class Ship extends GameObject {
 			return overflow;
 		}
 	}
+
+	translate (x, y, z) {
+		this.transform.translate(x, y, z);
+	}
+
+	move (val) {
+		this.transform.translate(val.direction[0] * val.speed, val.direction[1] * val.speed, val.direction[2] * val.speed);
+	}
+
 }
 
 class Shipyard {
@@ -110,20 +136,20 @@ class GameManager {
 		this.ship = this.shipyard.buildShip(this.shipyard.shipTemplate);
 		console.log(this.ship);
 
-		let newPos = this.ship.transform.translate(1, 1, 1);
-		console.log(newPos);
-
+		let newPos = this.ship.translate(1, 1, 1);
 	}
 
 	update (deltaTime) {
-		timer();
+		this.ship.move({direction: [1, 0, 1], speed: 1 / deltaTime});
 	}
 
 	timer () {
 		var d = new Date();
 		document.getElementById("demo").innerHTML = d.toLocaleTimeString();
 	}
-}
+};
+
+let framerate = 1000 / 60
 
 let gm = new GameManager();
 
@@ -140,7 +166,24 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('greet').innerHTML = greet();
     document.getElementById('platform-info').innerHTML = os.platform();
     document.getElementById('env-name').innerHTML = env.name;
-    document.getElementById('ship').innerHTML = gm.ship.name;
+    document.getElementById('ship-name').innerHTML = gm.ship.name;
+	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
 });
+
+document.addEventListener("keypress", function () {
+	console.log("keypress!");
+	gm.update();
+});
+
+function update () {
+	gm.update(framerate);
+};
+
+function draw () {
+	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
+};
+
+setInterval(update, framerate);
+setInterval(draw, framerate * 60);
 }());
 //# sourceMappingURL=app.js.map

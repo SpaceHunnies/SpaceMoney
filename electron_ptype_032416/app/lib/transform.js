@@ -30,4 +30,8 @@ export class Transform {
 		this.position = this.position.plus(new Matrix([x, y, z]));
 		return this.position.toArray();
 	}
+
+	moveTo(x, y, z) {
+		this.position = new Matrix([x, y, z]);
+	}
 }
