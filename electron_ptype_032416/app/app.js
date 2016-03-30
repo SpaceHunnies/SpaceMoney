@@ -10,7 +10,8 @@ import env from './env';
 
 import { GameManager } from './lib/game-manager'
 
-let framerate = 1000 / 60
+let fps = 4
+let framerate = 1000 / 4;
 
 let gm = new GameManager();
 
@@ -36,13 +37,18 @@ document.addEventListener("keypress", function () {
 	gm.update();
 });
 
+function mainLoop() {
+	update();
+	draw();
+}
+
+// all game functionality routes through the game manager
 function update () {
-	gm.update(framerate);
-};
+	gm.update(framerate / 1000);
+}
 
 function draw () {
 	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
-};
+}
 
-setInterval(update, framerate);
-setInterval(draw, framerate * 60);
+setInterval(mainLoop, framerate);

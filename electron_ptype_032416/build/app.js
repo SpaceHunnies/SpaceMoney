@@ -140,7 +140,7 @@ class GameManager {
 	}
 
 	update (deltaTime) {
-		this.ship.move({direction: [1, 0, 1], speed: 1 / deltaTime});
+		this.ship.move({direction: [1, 0, 1], speed: 1 * deltaTime});
 	}
 
 	timer () {
@@ -149,7 +149,7 @@ class GameManager {
 	}
 };
 
-let framerate = 1000 / 60
+let framerate = 1000 / 4;
 
 let gm = new GameManager();
 
@@ -175,15 +175,19 @@ document.addEventListener("keypress", function () {
 	gm.update();
 });
 
+function mainLoop() {
+	update();
+	draw();
+}
+
 function update () {
-	gm.update(framerate);
-};
+	gm.update(framerate / 1000);
+}
 
 function draw () {
 	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
-};
+}
 
-setInterval(update, framerate);
-setInterval(draw, framerate * 60);
+setInterval(mainLoop, framerate);
 }());
 //# sourceMappingURL=app.js.map
