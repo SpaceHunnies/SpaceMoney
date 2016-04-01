@@ -20,16 +20,9 @@ console.log('Loaded environment variables:', env);
 var app = remote.app;
 var appDir = jetpack.cwd(app.getAppPath());
 
-// Holy crap! This is browser window with HTML and stuff, but I can read
-// here files like it is node.js! Welcome to Electron world :)
-console.log('The author of this app is:', appDir.read('package.json', 'json').author);
-
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('greet').innerHTML = greet();
-    document.getElementById('platform-info').innerHTML = os.platform();
-    document.getElementById('env-name').innerHTML = env.name;
-    document.getElementById('ship-name').innerHTML = gm.ship.name;
-	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
+  document.getElementById('ship-name').innerHTML = gm.ship.name;
+  document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
 });
 
 document.addEventListener("keypress", function () {

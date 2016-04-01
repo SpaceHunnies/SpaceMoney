@@ -13,10 +13,10 @@ export class Ship extends GameObject {
 		this.oxyMax = properties.oxyMax;
 		this.water = properties.water;
 		this.waterMax = properties.waterMax;
-		this.captain = null;
-		this.comms = null;
-		this.quartermaster = null;
-		this.nav = null;
+		this.captain = properties.captain;
+		this.comms = properties.waterMax;
+		this.quartermaster = properties.quartermaster;
+		this.navigator = properties.navigator;
 		console.log("created a ship with name " + properties.name);
 	}
 
@@ -40,4 +40,3 @@ export class Ship extends GameObject {
 	}
 
 }
-
