@@ -21,13 +21,13 @@ export class Transform {
 		position ? this.position = position : this.position = new Matrix([0, 0, 0]);
 	}
 
-	translate(translation) {
-		this.position = this.position.plus(translation);
+	translate(x, y, z) {
+		this.position = this.position.plus(new Matrix([x, y, z]));
 		return this.position.toArray();
 	}
 
-	translate(x, y, z) {
-		this.position = this.position.plus(new Matrix([x, y, z]));
+	translateToVector(translation) {
+		this.position = this.position.plus(translation);
 		return this.position.toArray();
 	}
 

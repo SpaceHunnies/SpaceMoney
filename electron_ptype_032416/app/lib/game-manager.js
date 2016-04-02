@@ -1,6 +1,10 @@
 'use strict';
 
 import { Shipyard } from './shipyard';
+import { UniverseForge } from './universe-forge';
+const linearAlgebra = require('linear-algebra')(),
+	Vector = linearAlgebra.Vector,
+	Matrix = linearAlgebra.Matrix;
 
 export class GameManager {
 	constructor(args) {
@@ -9,13 +13,17 @@ export class GameManager {
 		this.ship = this.shipyard.buildShip(this.shipyard.shipTemplate);
 		console.log(this.ship);
 
-		let newPos = this.ship.translate(1, 1, 1);
+		this.universe = new UniverseForge(2, 10000, 10000, 10000).universe;
+		console.log(this.universe);
+
+		let newPos = this.ship.transform.translateToVector(this.universe[0].position);
+		console.log(this.universe[0].position.toArray());
 	}
 
 	// we probably want some way to handle real-time loops and
 	// async or "jump-ahead" updates
 	update (deltaTime) {
-		this.ship.move({direction: [1, 0, 1], speed: 1 * deltaTime});
+		// this.ship.move({direction: this.universe[0].position.toArray(), speed: 1 * deltaTime});
 	}
 
 	timer () {

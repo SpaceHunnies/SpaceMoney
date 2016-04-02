@@ -42,6 +42,19 @@ function update () {
 
 function draw () {
 	document.getElementById("pos-name").innerHTML = gm.ship.transform.position.data;
+
+	let list = '';
+	for (var i = gm.universe.length - 1; i >= 0; i--) {
+		if (gm.universe[i].position.data[0] == gm.ship.transform.position.data[0] &&
+			gm.universe[i].position.data[1] == gm.ship.transform.position.data[1] &&
+			gm.universe[i].position.data[2] == gm.ship.transform.position.data[2]
+			) { break };
+			//thanks javascript
+		list += gm.universe[i].position.data;
+		list += "\n";
+	}
+
+	document.getElementById("destinations").innerHTML = list;
 }
 
 setInterval(mainLoop, framerate);
