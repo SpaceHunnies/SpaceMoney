@@ -1,2 +1,1 @@
 # SpaceMoney
-Money. In space.
