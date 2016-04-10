@@ -25,15 +25,21 @@ export class Engine extends ShipModule {
 		}
 		var direction = origin.position.minus(target.position).mulEach(1 / distance);
 		var output = {}; // newPosition, fuelUse
-		if (distance < this.speed ) {
-			// using less than max, so we need to calculate
-			var fraction = distance / this.speed;
-			output.fuelUse = this.fuelRatio * this.speed * fraction;
-			output.newPosition = onRequest.origin.position.plus(direction.mulEach(this.speed * fraction));
+
+		if (this.ship.payload.fuel < 1) {
+			output.fuelUse = 0;
+			output.newPosition = origin.position;
 		} else {
-			// target is too far, go as far as possible
-			output.fuelUse = this.fuelRatio * this.speed;
-			output.newPosition = onRequest.origin.position.plus(direction.mulEach(this.speed));
+			if (distance < this.speed ) {
+				// using less than max, so we need to calculate
+				var fraction = distance / this.speed;
+				output.fuelUse = this.fuelRatio * this.speed * fraction;
+				output.newPosition = onRequest.origin.position.plus(direction.mulEach(this.speed * fraction));
+			} else {
+				// target is too far, go as far as possible
+				output.fuelUse = this.fuelRatio * this.speed;
+				output.newPosition = onRequest.origin.position.plus(direction.mulEach(this.speed));
+			}
 		}
 		return output;
 	}

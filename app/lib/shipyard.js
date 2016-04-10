@@ -18,12 +18,13 @@ export class Shipyard {
 			payload: {
 				food: 0,
 				oxygen: 0,
-				water: 0
+				water: 0,
+				fuel: 100,
 			},
-			modules: {
-				engine: new Engine({name: 'engine' }),
-				lifesupport: {}
-			},
+			modules:
+				new Map([
+						['engine', new Engine({name: 'engine' })]
+					]),
 			crew: {
 				captain: tavern.generateCrew(),
 				comms: tavern.generateCrew(),
