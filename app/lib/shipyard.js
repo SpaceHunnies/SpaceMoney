@@ -2,6 +2,7 @@
 
 import { Ship } from './ship';
 import { Tavern } from "./tavern"
+import { Engine } from './ship_modules/engine'
 
 export class Shipyard {
 	constructor(properties) {
@@ -20,7 +21,7 @@ export class Shipyard {
 				water: 0
 			},
 			modules: {
-				engine: {},
+				engine: new Engine({name: 'engine' }),
 				lifesupport: {}
 			},
 			crew: {

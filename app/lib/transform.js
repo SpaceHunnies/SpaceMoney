@@ -4,18 +4,6 @@ const linearAlgebra = require('linear-algebra')(),
 	Vector = linearAlgebra.Vector,
 	Matrix = linearAlgebra.Matrix;
 
-Matrix.sqrDistance = function (fromVector, toVector) {
-	let displacement = fromVector.minus(toVector);
-	let sqrDist = displacement.map(function(v) {
-		return v * v;
-	});
-	return sqrDist.getSum();
-};
-
-Matrix.distance = function(fromVector, toVector) {
-	return Math.sqrt(Matrix.sqrDistance(fromVector, toVector));
-};
-
 export class Transform {
 	constructor(position) {
 		position ? this.position = position : this.position = new Matrix([0, 0, 0]);
@@ -33,5 +21,17 @@ export class Transform {
 
 	moveTo(x, y, z) {
 		this.position = new Matrix([x, y, z]);
+	}
+
+	sqrDistance (toTransform) {
+		let displacement = this.position.minus(toTransform.position);
+		let sqrDist = displacement.map(function(v) {
+			return v * v;
+		});
+		return sqrDist.getSum();
+	}
+
+	distance (toTransform) {
+		return Math.sqrt(this.sqrDistance(toTransform));
 	}
 }

@@ -23,7 +23,7 @@ export class GameManager {
 	// we probably want some way to handle real-time loops and
 	// async or "jump-ahead" updates
 	update (deltaTime) {
-		// this.ship.move({direction: this.universe[0].position.toArray(), speed: 1 * deltaTime});
+		this.ship.move(this.universe[1]);
 	}
 
 	timer () {
