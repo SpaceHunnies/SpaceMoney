@@ -25,12 +25,13 @@ export class Shipyard {
 				new Map([
 						['engine', new Engine({name: 'engine' })]
 					]),
-			crew: {
-				captain: tavern.generateCrew(),
-				comms: tavern.generateCrew(),
-				quartermaster: tavern.generateCrew(),
-				navigator: tavern.generateCrew()
-			}
+			crew:
+				new Map ([
+						['captain', tavern.generateCrew()],
+						['coms', tavern.generateCrew()],
+						['quartermaster', tavern.generateCrew()],
+						['helms', tavern.generateCrew("helm")]
+					])
 		};
 	}
 

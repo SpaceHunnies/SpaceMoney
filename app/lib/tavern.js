@@ -1,6 +1,7 @@
 'use strict';
 
 import { CrewMember } from './crew-member';
+import { HelmsOfficer } from './crew/helms-officer';
 import _ from "lodash";
 
 export class Tavern {
@@ -9,12 +10,16 @@ export class Tavern {
 		this.properties = properties;
 	}
 
-	generateCrew() {
+	generateCrew(type) {
 		let props = {}
     props.full_name = this.generateFullName();
     console.log("spawning a crew member with properties:\n " + props);
+    if (type == "helm") { // dunno how to do switches in js
+      return new HelmsOfficer(props);
+    } else {
+      return new CrewMember(props);
+    }
 
-		return new CrewMember(props);
 	}
 
   generateFullName() {
