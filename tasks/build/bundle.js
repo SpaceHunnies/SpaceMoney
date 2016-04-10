@@ -3,6 +3,7 @@
 var pathUtil = require('path');
 var jetpack = require('fs-jetpack');
 var rollup = require('rollup');
+var babel = require('rollup-plugin-babel');
 var Q = require('q');
 
 var nodeBuiltInModules = ['assert', 'buffer', 'child_process', 'cluster',
@@ -28,6 +29,7 @@ module.exports = function (src, dest) {
     rollup.rollup({
         entry: src,
         external: generateExternalModulesList(),
+        plugins: [ babel() ]
     }).then(function (bundle) {
         var jsFile = pathUtil.basename(dest);
         var result = bundle.generate({
