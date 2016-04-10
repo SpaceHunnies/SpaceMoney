@@ -11,18 +11,24 @@ export class Shipyard {
 		let tavern = new Tavern(); // hack?
 		this.shipTemplate = {
 			name: 'prototypeShip',
-			speed: 5,
-			crewMax: 20,
-			food: 0,
-			foodMax: 100,
-			oxy: 0,
-			oxyMax: 100,
-			water: 0,
-			waterMax: 100,
-			captain: tavern.generateCrew(),
-			comms: tavern.generateCrew(),
-			quartermaster: tavern.generateCrew(),
-			navigator: tavern.generateCrew()
+			parameters: {
+				
+			},
+			payload: {
+				food: 0,
+				oxygen: 0,
+				water: 0
+			},
+			modules: {
+				engine: {},
+				lifesupport: {}
+			},
+			crew: {
+				captain: tavern.generateCrew(),
+				comms: tavern.generateCrew(),
+				quartermaster: tavern.generateCrew(),
+				navigator: tavern.generateCrew()
+			}
 		};
 	}
 
