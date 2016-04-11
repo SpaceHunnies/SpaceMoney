@@ -4,6 +4,7 @@ import { Ship } from './ship';
 import { Tavern } from "./tavern"
 import { Engine } from './ship_modules/engine'
 
+// The shipyard is the ship factory
 export class Shipyard {
 	constructor(properties) {
 		console.log("created a shipyard")
@@ -33,6 +34,7 @@ export class Shipyard {
 						['helms', tavern.generateCrew(tavern.crewType.helms)]
 					])
 		};
+		// we should probably not use the role as the key in the crew map; what if we need multiple crew with the same role?
 	}
 
 	buildShip(properties) {

@@ -1,9 +1,10 @@
 'use strict';
 
 import { CrewMember } from '../crew-member'
-// import { Ship } from '../ship'
 import { Engine } from '../ship_modules/engine'
 
+// Helms officer is reponsible for navigation and communicating with Engineering
+// or in the case of a ship without engineers, the engine
 export class HelmsOfficer extends CrewMember {
 	constructor(args) {
 		super(args);

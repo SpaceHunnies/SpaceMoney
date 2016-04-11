@@ -7,6 +7,8 @@ import { Captain } from './crew/captain';
 import { Quartermaster } from './crew/quartermaster';
 import _ from "lodash";
 
+// The tavern is the crew factory
+// Locations can have Tavern objects with modified params and functions
 export class Tavern {
 	constructor(properties) {
 		console.log("created a tavern")
