@@ -35,8 +35,6 @@ export class Ship extends GameObject {
 
 	// target: vec3
 	move (target) {
-		// this will at some point change to query the crew member's instead of the module;
-		// the crew then query the modules and get the module to do work
 		if (!this.crew.has('helms')) return;
 		if (!this.modules.has("engine")) return;
 		var response = this.crew.get("helms").sendInstructionToEngine(this, {target: target, origin: this.transform});

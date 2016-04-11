@@ -1,6 +1,7 @@
 'use strict';
 
 import { GameObject } from './game-object';
+import { Ship } from './ship'
 
 export class CrewMember extends GameObject {
 	constructor(properties) {

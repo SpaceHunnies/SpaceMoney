@@ -27,10 +27,10 @@ export class Shipyard {
 					]),
 			crew:
 				new Map ([
-						['captain', tavern.generateCrew()],
-						['coms', tavern.generateCrew()],
-						['quartermaster', tavern.generateCrew()],
-						['helms', tavern.generateCrew("helm")]
+						['captain', tavern.generateCrew(tavern.crewType.civilian)],
+						['comms', tavern.generateCrew(tavern.crewType.comms)],
+						['quartermaster', tavern.generateCrew(tavern.crewType.quartermaster)],
+						['helms', tavern.generateCrew(tavern.crewType.helms)]
 					])
 		};
 	}

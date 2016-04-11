@@ -1,7 +1,7 @@
 'use strict';
 
 import { CrewMember } from '../crew-member'
-import { Ship } from '../ship'
+// import { Ship } from '../ship'
 import { Engine } from '../ship_modules/engine'
 
 export class HelmsOfficer extends CrewMember {
