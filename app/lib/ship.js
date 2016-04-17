@@ -39,7 +39,7 @@ export class Ship extends GameObject {
 		if (!this.modules.has("engine")) return;
 		var response = this.crew.get("helms").sendInstructionToEngine(this, {target: target, origin: this.transform});
 		// var response = this.modules.get("engine").doWork({target: target, origin: this.transform});
-		
+
 		if (response.newPosition) {
 			this.transform.position = response.newPosition;
 			this.payload.fuel = this.payload.fuel - response.fuelUse;

@@ -6,16 +6,26 @@ import os from 'os'; // native node.js module
 import { remote } from 'electron'; // native electron module
 import jetpack from 'fs-jetpack'; // module loaded from npm
 import env from './env';
-import HelloUniverse from "./view/hello_universe"
-import React from 'react'
-import { render } from 'react-dom'
+import ShipView from "./components/ship-view";
+import React from 'react';
+import { render } from 'react-dom';
 
-import { GameManager } from './lib/game-manager'
+import { GameManager } from './lib/game-manager';
 
 var app = remote.app;
 let gm = new GameManager();
 
 render(
-  <HelloUniverse />,
+  <ShipView data={gm.ship} />,
   document.getElementById("root")
 )
+
+// ShipView
+//   PropertiesList
+//     PropertyView
+//   CrewList
+//     CrewMemberView
+//   PayloadList
+//     PayloadView
+//   ModuleList
+//     ModuleView
