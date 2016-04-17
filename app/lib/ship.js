@@ -3,7 +3,6 @@
 import { GameObject } from './game-object';
 import { Engine } from './ship_modules/engine'
 import { ShipModule } from './ship_modules/ship-module'
-import { HelmsOfficer } from './crew/helms-officer'
 
 // The base ship object is basically a container for other modules that work like plugins
 export class Ship extends GameObject {
@@ -37,7 +36,7 @@ export class Ship extends GameObject {
 	move (target) {
 		if (!this.crew.has('helms')) return;
 		if (!this.modules.has("engine")) return;
-		var response = this.crew.get("helms").sendInstructionToEngine(this, {target: target, origin: this.transform});
+		var response = this.crew.get("helms").abilities.get('helm').sendInstructionToEngine(this, {target: target, origin: this.transform});
 		// var response = this.modules.get("engine").doWork({target: target, origin: this.transform});
 		
 		if (response.newPosition) {

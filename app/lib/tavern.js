@@ -1,10 +1,8 @@
 'use strict';
 
 import { CrewMember } from './crew-member';
-import { HelmsOfficer } from './crew/helms-officer';
-import { CommsOfficer } from './crew/comms-officer';
-import { Captain } from './crew/captain';
-import { Quartermaster } from './crew/quartermaster';
+import { RoleBase } from './crew/roles/role-base'
+import { Navigate } from './crew/roles/navigate-role'
 import _ from "lodash";
 
 // The tavern is the crew factory
@@ -27,25 +25,24 @@ export class Tavern {
     props.full_name = this.generateFullName();
     console.log("spawning a crew member with properties:\n " + props);
     let type = _type ? _type : null;
+    let abilities = new Map();
+    let crew = new CrewMember(props, abilities);
     switch(type) {
       case this.crewType.civilian:
-        return new CrewMember(props);
+        crew.abilities.set('key', value);
       break;
 
       case this.crewType.quartermaster:
-        return new Quartermaster(props);
       break;
 
       case this.crewType.comms:
-        return new CommsOfficer(props);
       break;
 
       case this.crewType.helms:
-        return new HelmsOfficer(props);
+        crew.abilities.set('helm', new Navigate(crew))
       break;
 
       case this.crewType.captain:
-        return new Captain(props);
       break;
 
       default:
@@ -53,6 +50,7 @@ export class Tavern {
         return new CrewMember(props);
       break;
     }
+    return crew;
 	}
 
   generateFullName() {
