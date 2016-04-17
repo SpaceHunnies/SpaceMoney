@@ -3,6 +3,7 @@
 import { CrewMember } from './crew-member';
 import { RoleBase } from './crew/roles/role-base'
 import { Navigate } from './crew/roles/navigate-role'
+import { Captain } from './crew/roles/captain-role'
 import _ from "lodash";
 
 // The tavern is the crew factory
@@ -15,7 +16,7 @@ export class Tavern {
       civilian: 0,
       quartermaster: 1,
       comms: 2,
-      helms: 3,
+      nav: 3,
       captain: 4
     };
 	}
@@ -29,7 +30,7 @@ export class Tavern {
     let crew = new CrewMember(props, abilities);
     switch(type) {
       case this.crewType.civilian:
-        crew.abilities.set('key', value);
+
       break;
 
       case this.crewType.quartermaster:
@@ -38,16 +39,16 @@ export class Tavern {
       case this.crewType.comms:
       break;
 
-      case this.crewType.helms:
-        crew.abilities.set('helm', new Navigate(crew))
+      case this.crewType.nav:
+        crew.abilities.set('nav', new Navigate(crew))
       break;
 
       case this.crewType.captain:
+        crew.abilities.set('captain', new Captain(crew));
       break;
 
       default:
         console.warn("Tried to generate a crew type that doesn't exist!");
-        return new CrewMember(props);
       break;
     }
     return crew;

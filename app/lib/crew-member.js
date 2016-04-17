@@ -31,10 +31,11 @@ import { Ship } from './ship'
 
 // Abilities expects a map
 export class CrewMember extends GameObject {
-	constructor(properties, abilities) {
+	constructor(properties, abilities, ship) {
 		super(properties);
 		this.full_name = properties.full_name;
 		this.abilities = abilities; 
+		this.ship = ship || null;
 		console.log("created a crew member with full name " + properties.full_name);
 	}
 }

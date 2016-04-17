@@ -24,14 +24,14 @@ export class Shipyard {
 			},
 			modules:
 				new Map([
-						['engine', new Engine({name: 'engine' })]
+						['engine', new Engine({ name: 'engine' })]
 					]),
 			crew:
 				new Map ([
-						['captain', tavern.generateCrew(tavern.crewType.civilian)],
+						['captain', tavern.generateCrew(tavern.crewType.captain)],
 						['comms', tavern.generateCrew(tavern.crewType.comms)],
 						['quartermaster', tavern.generateCrew(tavern.crewType.quartermaster)],
-						['helms', tavern.generateCrew(tavern.crewType.helms)]
+						['nav', tavern.generateCrew(tavern.crewType.nav)]
 					])
 		};
 		// we should probably not use the role as the key in the crew map; what if we need multiple crew with the same role?

@@ -3,6 +3,8 @@
 import { GameObject } from './game-object';
 import { Engine } from './ship_modules/engine'
 import { ShipModule } from './ship_modules/ship-module'
+import { Captain } from './crew/roles/captain-role'
+import _ from "lodash";
 
 // The base ship object is basically a container for other modules that work like plugins
 export class Ship extends GameObject {
@@ -14,12 +16,20 @@ export class Ship extends GameObject {
 		this.parameters = template.parameters;			// extra stuff
 		console.log("created a ship with name " + template.name);
 		this.connectModules();
+		this.connectCrew();
 		this.nextTick = {}; // container for storing results of all calculations this tick;
+		console.log(_.has(this.crew, "nav"));
 	}
 
 	connectModules() {
-		for (var v of this.modules) {
-			v[1].ship = this;
+		for (var v of this.modules.values()) {
+			v.ship = this;
+		}
+	}
+
+	connectCrew() {
+		for (var v of this.crew.values()) {
+			v.ship = this;
 		}
 	}
 
@@ -34,14 +44,11 @@ export class Ship extends GameObject {
 
 	// target: vec3
 	move (target) {
-		if (!this.crew.has('helms')) return;
 		if (!this.modules.has("engine")) return;
-		var response = this.crew.get("helms").abilities.get('helm').sendInstructionToEngine(this, {target: target, origin: this.transform});
-		// var response = this.modules.get("engine").doWork({target: target, origin: this.transform});
-		
-		if (response.newPosition) {
-			this.transform.position = response.newPosition;
-			this.payload.fuel = this.payload.fuel - response.fuelUse;
+		let engine = this.modules.get('engine');		
+		if (engine.output.newPosition) {
+			this.transform.position = engine.output.newPosition;
+			this.payload.fuel = this.payload.fuel - engine.output.fuelUse;
 		}
 	}
 
