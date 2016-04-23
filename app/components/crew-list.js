@@ -12,7 +12,9 @@ class CrewList extends React.Component {
     for (var member of this.props.data.values()) {
       crewMembers.push(member);
     }
-
+    // TODO: In the future, when we have IDs uniquely identifying crew,
+    // we should pass a unique 'key' prop here
+    // http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
     var crewMemberNodes = crewMembers.map(function(crew) {
       return (
         <li>
