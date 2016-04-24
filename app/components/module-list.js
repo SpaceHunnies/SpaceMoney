@@ -23,7 +23,10 @@ class ModuleList extends React.Component {
 
     return (
       <div className="moduleList">
-        <h2>Modules</h2>
+        <div className="margin-bottom-md">
+          <h2 className="no-margin">Modules</h2>
+          <span className="japanese">モジュール</span> / <span className="russian">модули</span>
+        </div>
         <ul>
           {moduleNodes}
         </ul>

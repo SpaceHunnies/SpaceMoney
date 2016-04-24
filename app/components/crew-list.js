@@ -25,7 +25,10 @@ class CrewList extends React.Component {
 
     return (
       <div className="crewList">
-        <h2>Crew Members</h2>
+        <div className="margin-bottom-md">
+          <h2 className="no-margin">Crew Members</h2>
+          <span className="japanese">乗組員リスト</span> / <span className="russian">члены экипажа</span>
+        </div>
         <ul>
           {crewMemberNodes}
         </ul>

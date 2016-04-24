@@ -8,9 +8,9 @@ class ModuleView extends React.Component {
 
   render() {
     return <div className="moduleView">
-        <h3>
+        <span>
           {this.props.moduleType}
-        </h3>
+        </span>
         {this.props.children}
       </div>
   }

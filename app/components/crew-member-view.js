@@ -8,9 +8,9 @@ class CrewMemberView extends React.Component {
 
   render() {
     return <div className="crewMember">
-        <h3 className="crewMemberName">
+        <span className="crewMemberName">
           {this.props.full_name}
-        </h3>
+        </span>
         {this.props.children}
       </div>
   }

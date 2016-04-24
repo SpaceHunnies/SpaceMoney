@@ -20,7 +20,10 @@ class PayloadList extends React.Component {
 
     return (
       <div className="payloadList">
-        <h2>Payloads</h2>
+        <div className="margin-bottom-md">
+          <h2 className="no-margin">Payloads</h2>
+          <span className="japanese">ペイロード</span> / <span className="russian">полезная нагрузка</span>
+        </div>
         <ul>
           {payloadNodes}
         </ul>
