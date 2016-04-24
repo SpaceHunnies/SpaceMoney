@@ -15,7 +15,7 @@ export class Navigate extends Role {
 	}
 
 	navigate() {
-		if (!this.ship.targetTransform) {
+		if (!this.ship.targetSystem) {
 			// this.targetTransform = chooseTargetDestination(this.ship.transform, searchRange);
 			console.log("[NAV] No target!");
 		} else {
@@ -29,9 +29,16 @@ export class Navigate extends Role {
 
 	sendInstructionToEngine(request) {
 		if (!request) {
-			request = {target: this.ship.targetTransform, origin: this.ship.transform};
+			request = {target: this.ship.targetSystem.transform, origin: this.ship.transform};
 		}
-		this.ship.modules.get("engine").doWork(request);
+		this.ship.modules.get("engine").doWork(request, this.dock, this);
+	}
+
+	dock(my) {
+		let e = my.ship.modules.get('engine');
+		if (e.output.distance > 0) return; // else we're at target
+		if (!my.ship.targetSystem.starport) return;
+		console.log('[NAV] Docked!');
 	}
 
 }

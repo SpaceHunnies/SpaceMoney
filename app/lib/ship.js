@@ -19,7 +19,7 @@ export class Ship extends GameObject {
 		this.connectCrew();
 		this.nextTick = {}; // container for storing results of all calculations this tick;
 		this.universe = null;
-		this.targetTransform = null;
+		this.targetSystem = null;
 	}
 
 	connectModules() {

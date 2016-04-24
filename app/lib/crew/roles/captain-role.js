@@ -12,8 +12,8 @@ export class Captain extends Role {
 		super(person);
 	}
 
-	setTargetLocation(targetTransform) {
-		this.ship.targetTransform = targetTransform;
+	setTargetLocation(targetSystem) {
+		this.ship.targetSystem = targetSystem;
 		// do other stuff ??
 	}
 

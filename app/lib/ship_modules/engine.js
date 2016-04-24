@@ -17,13 +17,16 @@ export class Engine extends ShipModule {
 
 	// onRequest: { target: transform, origin: transform }
 	// right now assuming you always use one unit of time
-	doWork(onRequest) {
+	doWork(onRequest, callback, caller) {
 		var _output = {}; // newPosition, fuelUse, dist
 		var origin = onRequest.origin;
 		var target = onRequest.target;
 		var distance = origin.distance(target);
 		if (distance <= 0) {
+			console.log('[Engine] Arrived at target');
 			this.output = { newPosition: origin, fuelUse: 0, distance: 0 };
+			if (callback) callback(caller);
+			return;
 		}
 		_output.distance = distance;
 		var direction = target.position.minus(origin.position).mulEach(1 / distance);
@@ -35,7 +38,7 @@ export class Engine extends ShipModule {
 		} else {
 			if (distance < this.speed ) {
 				// using less than max, so we need to calculate
-				console.log('[Engine] Arrived at target');
+
 				var fraction = distance / this.speed;
 				_output.fuelUse = this.fuelRatio * this.speed * fraction;
 				_output.newPosition = target.position; //onRequest.origin.position.plus(direction.mulEach(this.speed * fraction));
@@ -47,6 +50,7 @@ export class Engine extends ShipModule {
 		}
 		this.output = _output;
 		this.moveTransform();
+		if (callback) callback(caller);
 	}
 
 	moveTransform() {

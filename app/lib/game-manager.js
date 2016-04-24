@@ -18,7 +18,7 @@ export class GameManager {
 		console.log(this.ship);
 
 		let newPos = this.ship.transform.translateToVector(this.universe[0].transform.position);
-		this.ship.targetTransform = this.universe[1].transform;
+		this.ship.targetSystem = this.universe[1];
 		this.ship.crew.get('captain').abilities.get('captain').doMove();
 	}
 
@@ -37,6 +37,6 @@ export class GameManager {
 	setRandTarget() {
 		let i = Math.floor(Math.random() * this.universe.length);
 		console.log('[GM] setting target to ' + this.universe[i].print());
-		this.ship.crew.get('captain').abilities.get('captain').setTargetLocation(this.universe[i].transform);
+		this.ship.crew.get('captain').abilities.get('captain').setTargetLocation(this.universe[i]);
 	}
 };
