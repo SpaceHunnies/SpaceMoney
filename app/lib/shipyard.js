@@ -37,9 +37,10 @@ export class Shipyard {
 		// we should probably not use the role as the key in the crew map; what if we need multiple crew with the same role?
 	}
 
-	buildShip(properties) {
+	buildShip(properties, universe) {
 		console.log("spawning a ship with properties:\n " + properties.name);
 		let s = new Ship(properties);
+		s.universe = universe;
 		this.shipList.push(s);
 		return s;
 	}

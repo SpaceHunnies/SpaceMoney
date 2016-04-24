@@ -18,7 +18,8 @@ export class Ship extends GameObject {
 		this.connectModules();
 		this.connectCrew();
 		this.nextTick = {}; // container for storing results of all calculations this tick;
-		console.log(_.has(this.crew, "nav"));
+		this.universe = null;
+		this.targetTransform = null;
 	}
 
 	connectModules() {
@@ -30,6 +31,9 @@ export class Ship extends GameObject {
 	connectCrew() {
 		for (var v of this.crew.values()) {
 			v.ship = this;
+			for (var a of v.abilities.values()) {
+				a.ship = this;
+			}
 		}
 	}
 
@@ -41,15 +45,4 @@ export class Ship extends GameObject {
 	translate (x, y, z) {
 		this.transform.translate(x, y, z);
 	}
-
-	// target: vec3
-	move (target) {
-		if (!this.modules.has("engine")) return;
-		let engine = this.modules.get('engine');		
-		if (engine.output.newPosition) {
-			this.transform.position = engine.output.newPosition;
-			this.payload.fuel = this.payload.fuel - engine.output.fuelUse;
-		}
-	}
-
 }

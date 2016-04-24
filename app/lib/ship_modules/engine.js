@@ -18,6 +18,7 @@ export class Engine extends ShipModule {
 	// onRequest: { target: transform, origin: transform }
 	// right now assuming you always use one unit of time
 	doWork(onRequest) {
+		var _output = {}; // newPosition, fuelUse
 		var origin = onRequest.origin;
 		var target = onRequest.target;
 		var distance = origin.distance(target);
@@ -25,7 +26,7 @@ export class Engine extends ShipModule {
 			this.output = { newPosition: origin, fuelUse: 0 };
 		}
 		var direction = origin.position.minus(target.position).mulEach(1 / distance);
-		var _output = {}; // newPosition, fuelUse
+
 
 		if (this.ship.payload.fuel < 1) {
 			_output.fuelUse = 0;
@@ -43,5 +44,14 @@ export class Engine extends ShipModule {
 			}
 		}
 		this.output = _output;
+		this.moveTransform();
+	}
+
+	moveTransform() {
+		if (!this.output.newPosition) return;
+		console.log('[Engine] Ship moved from ' + this.ship.transform.position.toArray() + ' to ' + this.output.newPosition.toArray());
+		this.ship.transform.position = this.output.newPosition;
+		this.ship.payload.fuel = this.ship.payload.fuel - this.output.fuelUse;
+
 	}
 }

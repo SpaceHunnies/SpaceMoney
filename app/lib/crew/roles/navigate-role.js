@@ -11,20 +11,16 @@ const linearAlgebra = require('linear-algebra')(),
 export class Navigate extends Role {
 	constructor(person) {
 		super(person);
-		this.targetTransform = null;
 		this.searchRange = 1000;
 	}
 
 	navigate() {
-		let captain = this.ship.crew.get("captain");
-		if (!captain) return;
-		let target = this.ship.captain.targetTransform
-		if (!target) {
-			this.targetTransform = chooseTargetDestination(this.ship.transform, searchRange);
+		if (!this.ship.targetTransform) {
+			// this.targetTransform = chooseTargetDestination(this.ship.transform, searchRange);
+			console.log("[NAV] No target!");
 		} else {
-			this.targetTransform = target;
+			this.sendInstructionToEngine();
 		}
-		sendInstructionToEngine();
 	}
 
 	chooseTargetDestination(currentLocation, range) {
@@ -33,7 +29,7 @@ export class Navigate extends Role {
 
 	sendInstructionToEngine(request) {
 		if (!request) {
-			request = {target: this.targetTransform, origin: this.ship.transform};
+			request = {target: this.ship.targetTransform, origin: this.ship.transform};
 		}
 		this.ship.modules.get("engine").doWork(request);
 	}

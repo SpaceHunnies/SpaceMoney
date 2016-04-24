@@ -8,22 +8,24 @@ const linearAlgebra = require('linear-algebra')(),
 
 export class GameManager {
 	constructor(args) {
-		console.log("constructing game manager")
-		this.shipyard = new Shipyard();
-		this.ship = this.shipyard.buildShip(this.shipyard.shipTemplate);
-		console.log(this.ship);
+		console.log("[GM] Constructing...")
 
-		this.universe = new UniverseForge(2, 10000, 10000, 10000).universe;
+		this.universe = new UniverseForge(2, 1000, 1000, 1000).universe;
 		console.log(this.universe);
 
+		this.shipyard = new Shipyard();
+		this.ship = this.shipyard.buildShip(this.shipyard.shipTemplate, this.universe);
+		console.log(this.ship);
+
 		let newPos = this.ship.transform.translateToVector(this.universe[0].position);
-		console.log(this.universe[0].position.toArray());
+		this.ship.targetTransform = this.universe[1];
+		this.ship.crew.get('captain').abilities.get('captain').doMove();
 	}
 
 	// we probably want some way to handle real-time loops and
 	// async or "jump-ahead" updates
 	update (deltaTime) {
-		this.ship.move(this.universe[1]);
+
 	}
 
 	timer () {
