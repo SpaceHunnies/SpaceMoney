@@ -20,7 +20,7 @@ export class Shipyard {
 				food: 0,
 				oxygen: 0,
 				water: 0,
-				fuel: 100,
+				fuel: 100000,
 			},
 			modules:
 				new Map([

@@ -1,6 +1,7 @@
 'use strict';
 
 import { Transform } from './transform';
+import { StarSystem } from './universe/star-system'
 
 const linearAlgebra = require('linear-algebra')(),
 	Vector = linearAlgebra.Vector,
@@ -26,7 +27,10 @@ export class UniverseForge {
 	generateUniverse() {
 		let universe = [];
 		for (var i = 0; i < this.howMany; i++) {
-			universe.push(this.generateVec3());
+			let p = {};
+			p.name = "name";
+			p.starport = Math.round(Math.random()) == 0 ? true : false;
+			universe.push(new StarSystem(p, this.generateVec3()));
 		}
 		return universe;
 	}

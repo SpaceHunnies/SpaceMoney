@@ -17,8 +17,14 @@ let gm = new GameManager();
 
 document.onkeydown = function(event) {
 	// console.log(event);
-	if (event.keyCode == 32) gm.update();
-	if (event.keyCode == 82) gm.ship.payload.fuel = 1000;
+	if (event.keyCode == 32) gm.update(); // space
+	if (event.keyCode == 82) gm.ship.payload.fuel = 999999999; //r
+	if (event.keyCode == 88) { // x
+		for (let i = 0; i < 10; i++) {
+			gm.update();
+		}
+	}
+	if (event.keyCode == 49) gm.setRandTarget();
 }
 
 render(
