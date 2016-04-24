@@ -31,7 +31,7 @@ export class Navigate extends Role {
 		if (!request) {
 			request = {target: this.ship.targetSystem.transform, origin: this.ship.transform};
 		}
-		this.ship.modules.get("engine").doWork(request, this.dock, this);
+		this.ship.modules.get("engine").doWork(request, this.dock, this); // if there's a correct way to send caller/object references through callbacks that would be great
 	}
 
 	dock(my) {
