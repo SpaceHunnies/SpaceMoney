@@ -15,10 +15,17 @@ import { GameManager } from './lib/game-manager';
 var app = remote.app;
 let gm = new GameManager();
 
+document.onkeydown = function(event) {
+	// console.log(event);
+	if (event.keyCode == 32) gm.update();
+	if (event.keyCode == 82) gm.ship.payload.fuel = 1000;
+}
+
 render(
   <ShipView data={gm.ship} />,
   document.getElementById("root")
 )
+
 
 // ShipView
 //   PropertiesList

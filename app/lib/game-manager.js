@@ -25,7 +25,7 @@ export class GameManager {
 	// we probably want some way to handle real-time loops and
 	// async or "jump-ahead" updates
 	update (deltaTime) {
-
+		this.ship.crew.get('captain').abilities.get('captain').doMove();
 	}
 
 	timer () {
