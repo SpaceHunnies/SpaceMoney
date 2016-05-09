@@ -8,7 +8,7 @@ class StatusList extends React.Component {
   }
 
   render() {
-    let a = this.props.data.position.toArray();
+    let a = this.props.data.transform.position.toArray();
       let f = 1;
     for (var i = a[0].length - 1; i >= 0; i--) {
       a[0][i] = Math.round(a[0][i] * f) / f;

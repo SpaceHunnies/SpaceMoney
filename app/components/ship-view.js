@@ -18,7 +18,7 @@ class ShipView extends React.Component {
         <div className="slim-container">
           <div className="row">
             {/* <div className="column"><ParameterList data={this.props.data.parameters} /></div> */}
-            <div className="column"><StatusList data={this.props.data.transform} /></div>
+            <div className="column"><StatusList data={this.props.data} /></div>
             <div className="column"><CrewList data={this.props.data.crew} /></div>
             <div className="column"><PayloadList data={this.props.data.payload} /></div>
             <div className="column"><ModuleList data={this.props.data.modules} /></div>

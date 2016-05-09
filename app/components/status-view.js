@@ -1,8 +1,9 @@
 import React from 'react';
 
-class Status extends React.Component {
+class StatusView extends React.Component {
 
   constructor(props, context){
+    ///<param name = "props" type = "Ship">The ship to display information about</param>
     super(props, context);
   }
 
