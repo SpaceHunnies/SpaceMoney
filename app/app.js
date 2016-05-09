@@ -31,18 +31,18 @@ document.onkeydown = function(event) {
 	// key 1
 	if (event.keyCode == 49) gm.setRandTarget();
 	if (event.keyCode == 187) { // +
-		rate += 1;
+		rate *= 2;
 		clearInterval(interval);
 		interval = setInterval(update, 1000 / rate);
 	}
 	if (event.keyCode == 189) { // -
 		if (rate > 1) {
-			rate -= 1;
+			rate /= 2;
 			clearInterval(interval);
 			interval = setInterval(update, 1000 / rate);
 		} else {
 			clearInterval(interval);
-			rate = 0;
+			rate = 1;
 		}
 	}
 
