@@ -19,7 +19,7 @@ class StatusList extends React.Component {
 
   render() {
     let updateString = "";
-    for (var i = 0; i < this.props.rate; i++) {
+    for (var i = 0; i < Math.floor(this.props.rate / 2); i++) {
       updateString += ">";
     }
 
@@ -30,6 +30,7 @@ class StatusList extends React.Component {
           <span className="japanese">状態</span> / <span className="russian">положение</span>
           <p>In space</p>
           <p>{updateString}</p>
+          <p>Status code: {this.props.data.code}</p>
         </div>
         <div> 
           <h6 className="no-margin">Position</h6>
