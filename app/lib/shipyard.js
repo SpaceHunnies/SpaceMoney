@@ -12,7 +12,7 @@ export class Shipyard {
 		this.shipList = [];
 		let tavern = new Tavern(); // hack?
 		this.shipTemplate = {
-			name: 'prototypeShip',
+			name: this.generateName(),
 			parameters: {
 				
 			},
@@ -43,5 +43,22 @@ export class Shipyard {
 		s.universe = universe;
 		this.shipList.push(s);
 		return s;
+	}
+
+	generateName() {
+		let names = [
+			"GCU Of Course I Still Love You",
+			"USS Enterprise",
+			"Battleship Yamato",
+			"NX-59650 USCSS Prometheus",
+			"Serenity",
+			"USCSS Nostromo",
+			"Executor",
+			"Millenium Falcon",
+			"LSV Profit Margin",
+			"GCU Just Read the Instructions",
+			"FP/(D)ROU	The Usual But Etymologically Unsatisfactory"
+		];
+		return names[Math.floor(Math.random() * names.length)]
 	}
 }
