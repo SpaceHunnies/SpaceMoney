@@ -12,7 +12,7 @@ class StatusView extends React.Component {
         <span>
           {this.props}
         </span>
-        // {this.props.children}
+        {this.props.children}
       </div>
   }
 

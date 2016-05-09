@@ -14,6 +14,8 @@ import { GameManager } from './lib/game-manager';
 
 var app = remote.app;
 let gm = new GameManager();
+let rate = 1;
+let interval;
 
 document.onkeydown = function(event) {
 	// console.log(event);
@@ -28,11 +30,32 @@ document.onkeydown = function(event) {
 	}
 	// key 1
 	if (event.keyCode == 49) gm.setRandTarget();
+	if (event.keyCode == 187) { // +
+		rate += 1;
+		clearInterval(interval);
+		interval = setInterval(update, 1000 / rate);
+	}
+	if (event.keyCode == 189) { // -
+		if (rate > 1) {
+			rate -= 1;
+			clearInterval(interval);
+			interval = setInterval(update, 1000 / rate);
+		} else {
+			clearInterval(interval);
+			rate = 0;
+		}
+	}
+
+	refresh();
+}
+
+function update() {
+	gm.update();
 	refresh();
 }
 
 function refresh() {
-  render(<ShipView data={gm.ship} />, document.getElementById("root"));	
+  render(<ShipView data={gm.ship} rate={rate} />, document.getElementById("root"));	
 }
 
 refresh();

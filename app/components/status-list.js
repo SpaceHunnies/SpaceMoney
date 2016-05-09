@@ -18,11 +18,18 @@ class StatusList extends React.Component {
   }
 
   render() {
+    let updateString = "";
+    for (var i = 0; i < this.props.rate; i++) {
+      updateString += ">";
+    }
+
     return (
       <div className="statusList">
         <div className="margin-bottom-md">
           <h2 className="no-margin">Status</h2>
           <span className="japanese">状態</span> / <span className="russian">положение</span>
+          <p>In space</p>
+          <p>{updateString}</p>
         </div>
         <div> 
           <h6 className="no-margin">Position</h6>

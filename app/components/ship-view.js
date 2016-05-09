@@ -14,11 +14,11 @@ class ShipView extends React.Component {
 
   render() {
     return <div className="shipView">
-        <h1>{this.props.data.name} <span className="much-smaller japanese">船</span> <span className="much-smaller">/</span> <span className="much-smaller russian">судно</span></h1>
+        <h1>{this.props.data.name} <span className="much-smaller">Ship /</span> <span className="much-smaller japanese">船</span> <span className="much-smaller">/</span> <span className="much-smaller russian">судно</span></h1>
         <div className="slim-container">
           <div className="row">
             {/* <div className="column"><ParameterList data={this.props.data.parameters} /></div> */}
-            <div className="column"><StatusList data={this.props.data} /></div>
+            <div className="column"><StatusList data={this.props.data} rate={this.props.rate} /></div>
             <div className="column"><CrewList data={this.props.data.crew} /></div>
             <div className="column"><PayloadList data={this.props.data.payload} /></div>
             <div className="column"><ModuleList data={this.props.data.modules} /></div>
