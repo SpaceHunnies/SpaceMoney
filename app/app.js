@@ -17,20 +17,25 @@ let gm = new GameManager();
 
 document.onkeydown = function(event) {
 	// console.log(event);
-	if (event.keyCode == 32) gm.update(); // space
+	if (event.keyCode == 32) {// space
+		gm.update();
+	}
 	if (event.keyCode == 82) gm.ship.payload.fuel = 999999999; //r
 	if (event.keyCode == 88) { // x
 		for (let i = 0; i < 10; i++) {
 			gm.update();
 		}
 	}
+	// key 1
 	if (event.keyCode == 49) gm.setRandTarget();
+	refresh();
 }
 
-render(
-  <ShipView data={gm.ship} />,
-  document.getElementById("root")
-)
+function refresh() {
+  render(<ShipView data={gm.ship} />, document.getElementById("root"));	
+}
+
+refresh();
 
 
 // ShipView
