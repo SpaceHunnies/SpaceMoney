@@ -11,6 +11,7 @@ const linearAlgebra = require('linear-algebra')(),
 const statusCode = [
 	"NONE",
 	"ARRIVAL",
+	"DOCKING",
 	"DOCKED"
 ];
 
@@ -26,14 +27,14 @@ export class Navigate extends Role {
 		if (!this.ship.targetSystem) {
 			// this.targetTransform = chooseTargetDestination(this.ship.transform, searchRange);
 			console.log("[NAV] No target!");
-		} else if (!this.isAtTarget()) {
+		} else if (!this.isArrivedAtSystem()) {
 			this.sendInstructionToEngine();
 		} else if (this.ship.targetSystem.transform.distance(this.ship.transform) > 0) {
 			this.sendInstructionToEngine();
 		}
 	}
 
-	isAtTarget() {
+	isArrivedAtSystem() {
 		let e = this.ship.modules.get('engine');
 		if (!e) return;
 		if (!e.output) return;
@@ -51,7 +52,7 @@ export class Navigate extends Role {
 	}
 
 	dock(my) {
-		if (!my.isAtTarget()) return;
+		if (!my.isArrivedAtSystem()) return;
 		if (!my.ship.targetSystem.starport) {
 			my.code = statusCode[1];
 			console.log('[NAV] At target!');
