@@ -23,6 +23,13 @@ class StatusList extends React.Component {
       updateString += ">";
     }
 
+    let facilities = "";
+    if (this.props.data.targetSystem.starport) {
+      facilities += "Starport";
+    } else {
+      facilities += "None";
+    }
+
     return (
       <div className="statusList">
         <div className="margin-bottom-md">
@@ -36,6 +43,7 @@ class StatusList extends React.Component {
           <h6 className="no-margin">Position</h6>
           <p>{this.getPosString(this.props.data.transform.position)}</p>
           <h6 className="no-margin"><b>Target: </b> {this.props.data.targetSystem.name}</h6>
+          <p className="no-margin"><b>Facilities: </b> {facilities} </p>
           <p className="no-margin"><b>Coordinates: </b>{this.getPosString(this.props.data.targetSystem.transform.position)}</p>
           <p className="no-margin"><b>Distance: </b>{Math.round(this.props.data.targetSystem.transform.distance(this.props.data.transform))} SU</p>
         </div>
