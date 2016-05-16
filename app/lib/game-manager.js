@@ -10,7 +10,7 @@ export class GameManager {
 	constructor(args) {
 		console.log("[GM] Constructing...")
 
-		this.universe = new UniverseForge(200, 10000, 10000, 10000).universe;
+		this.universe = new UniverseForge(50, 100, 100, 100).universe;
 		console.log(this.universe);
 
 		this.shipyard = new Shipyard();

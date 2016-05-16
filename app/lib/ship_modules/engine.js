@@ -11,7 +11,7 @@ export class Engine extends ShipModule {
 	constructor(properties) {
 		super(properties);
 		this.fuelRatio = 0.1; // units of fuel per unit of movement (fuel / distance)
-		this.speed = 40; // units of time to move one unit (time / distance)
+		this.speed = 4; // units of time to move one unit (time / distance)
 		this.output = null;
 	}
 
