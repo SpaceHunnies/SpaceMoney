@@ -22,6 +22,6 @@ export class Captain extends Role {
 			console.log('[Captain] No navigator!');
 			return;
 		}
-		this.ship.crew.get('nav').abilities.get('nav').navigate();
+		this.ship.crew.get('nav').abilities.get('nav').update();
 	}
 }

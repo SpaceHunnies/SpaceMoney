@@ -9,7 +9,7 @@ const linearAlgebra = require('linear-algebra')(),
 	Matrix = linearAlgebra.Matrix;
 
 const statusCode = [
-	"NONE",
+	"NOMINAL",
 	"ARRIVAL",
 	"DOCKING",
 	"DOCKED"
@@ -22,10 +22,13 @@ export class Navigate extends Role {
 		this.searchRange = 1000;
 		this.code = statusCode[0]
 		this.engineModule = null;
+		this.dockingTimer = 10;
+		this.dockingTimerInit = 10;
+		// this.getEngineModule();
 	}
 
 	getEngineModule() {
-		if (engineModule != null) {
+		if (this.engineModule != null) {
 			console.log("[NAV] Replacing engine module reference...");
 		}
 		let e = this.ship.modules.get('engine');
@@ -38,7 +41,39 @@ export class Navigate extends Role {
 		return true;
 	}
 
-	navigate() {
+	update() {
+		switch (this.code) {
+			case statusCode[0]:
+				if (this.engineModule == null) this.getEngineModule();
+				this.navigateToTargetSystem();
+			break;
+
+			case statusCode[1]:
+				this.navigateToTargetSystem();
+			break;
+
+			case statusCode[2]:
+				if (this.dockingTimer <= 0) { // engage dock
+					this.code = statusCode[3];
+					console.log("[NAV] Docked!");
+				} else {
+					this.dockingTimer--;
+					console.log("[NAV] Docking in " + this.dockingTimer);
+				}
+				this.ship.code = this.code;
+			break;
+
+			case statusCode[3]:
+			break;
+
+			default:
+				console.log("[NAV] Status code missing");
+			break;
+
+		}
+	}
+
+	navigateToTargetSystem() {
 		if (!this.ship.targetSystem) {
 			console.log("[NAV] No target!");
 		} else if (!this.isArrivedAtSystem()) {
@@ -68,8 +103,8 @@ export class Navigate extends Role {
 		this.ship.modules.get("engine").doWork(request, this.endInstructionsToEngine, this); // if there's a correct way to send caller/object references through callbacks that would be great
 	}
 
-	endInstructionsToEngine(this) {
-		this.dock(this);
+	endInstructionsToEngine(my) {
+		my.dock(my);
 	}
 
 	dock(my) {
@@ -79,7 +114,7 @@ export class Navigate extends Role {
 			console.log('[NAV] At target!');
 		} else {
 			my.code = statusCode[2];
-			console.log('[NAV] Docked!');
+			console.log('[NAV] Docking!');
 		}
 		my.ship.code = my.code;
 	}

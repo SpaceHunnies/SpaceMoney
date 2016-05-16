@@ -18,8 +18,8 @@ class StatusList extends React.Component {
   }
 
   render() {
-    let updateString = "";
-    for (var i = 0; i < Math.floor(this.props.rate / 2); i++) {
+    let updateString = "||";
+    for (var i = 0; i < Math.floor((this.props.rate / 2)); i++) {
       updateString += ">";
     }
 
